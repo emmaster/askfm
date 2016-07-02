@@ -10,6 +10,9 @@ class User < ActiveRecord::Base
 
   validates :email, :username, presence: true
   validates :email, :username, uniqueness: true
+  validates :email, format: {with: /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i}
+  validates :username, format: {with: /\A[a-zA-Z0-9_]*\z/}
+  validates :username, length: {maximum: 40}
 
   attr_accessor :password
 
