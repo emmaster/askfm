@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   has_many :questions
 
   validates :email, :username, presence: true
-  validates :email, :username, uniqueness: {case_sensitive: false}
+  validates :email, :username, uniqueness: true
   validates :email, format: {with: /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i}
   validates :username, format: {with: /\A[a-zA-Z0-9_]*\z/}
   validates :username, length: {maximum: 40}
@@ -19,7 +19,8 @@ class User < ActiveRecord::Base
   validates_presence_of :password, on: create
   validates_confirmation_of :password #эта строка говорит о том, что в этом объекте должно быть второе поле с именем password_confirmation
 
-  before_save :encrypt_password, :downcased
+  before_validation :downcased
+  before_save :encrypt_password
   before_update :downcased
 
   def downcased
