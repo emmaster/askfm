@@ -21,7 +21,6 @@ class User < ActiveRecord::Base
 
   before_validation :downcased
   before_save :encrypt_password
-  before_update :downcased
 
   def downcased
     self.username = self.username.downcase if self.username.present?

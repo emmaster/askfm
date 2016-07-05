@@ -35,10 +35,9 @@ module ApplicationHelper
   end
 
 
-  def questions_count(questions_array)
-    sklonenie = Sklonjator.sklonenie(questions_array.length.to_i,'вопрос', 'вопроса', 'вопросов')
-    return questions_array.length.to_s+" "+sklonenie
+  def items_count(items_array, krokodil, krokodila, krokodilov)
+    sklonenie = Sklonjator.sklonenie(items_array.length.to_i,krokodil, krokodila, krokodilov)
+    "#{items_array.length} #{sklonenie}"
   end
-
 
 end
