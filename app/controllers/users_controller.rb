@@ -1,39 +1,59 @@
 class UsersController < ApplicationController
+
+  before_action :load_user, except: [:new,:create,:index]
+  before_action :authorize_user, except: [:index, :new, :create, :show]
+
   def index
-    @users = [
-        User.new(
-                id: 1,
-                name: 'Vadim',
-                username: 'installero',
-                avatar_url: 'https://secure.gravatar.com/avatar/'
-        ),
-        User.new(
-                id: 2,
-                name: 'Misha',
-                username: 'aristofun'
-        )
-    ]
+    @users = User.all
   end
 
   def new
+    redirect_to root_url, alert: 'вы уже залогинены' if current_user.present?
+    @user = User.new
+  end
+
+  def create
+
+    redirect_to root_url, alert: 'вы уже залогинены' if current_user.present?
+    @user = User.new(user_params)
+
+    if @user.save
+      redirect_to root_url, notice: 'Пользователь успешно создан'
+    else
+      render 'new'
+    end
+  end
+
+  def update
+
+    if @user.update(user_params)
+      redirect_to user_path(@user), notice: 'Пользователь успешно обновлен'
+    else
+      render 'edit'
+    end
   end
 
   def edit
   end
 
   def show
-    @user = User.new(
-      name: 'Alexey',
-      username: 'alexk',
-      avatar_url: 'https://secure.gravatar.com/avatar/6e65b6a033fba99124c8285c012af0bf',
-    )
-
-    @questions = [
-        Question.new(text: 'Как дела?', created_at: Date.parse('27.03.2016')),
-        Question.new(text: 'Какие вопросы', created_at: Date.parse('24.03.2016'))
-    ]
-
-    @new_question = Question.new
-
+    @questions = @user.questions.order(created_at: :desc)
+    @new_question = @user.questions.build
   end
+
+  private
+
+  def load_user
+    @user ||= User.find params[:id]
+  end
+
+  def user_params
+    params.require(:user).permit(:email, :password, :password_confirmation,
+                                 :name, :username,:avatar_url)
+  end
+
+  def authorize_user
+    reject_user unless @user == current_user
+  end
+
 end

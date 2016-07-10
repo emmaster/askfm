@@ -30,6 +30,7 @@
   margin-right: auto;
 }
 
+
 .container:after {
   content: "";
   visibility: hidden;
