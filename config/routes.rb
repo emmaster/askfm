@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   resources :sessions, only: [:new, :create, :destroy]
 
-  resources :questions
+  resources :questions, except: [:index, :new, :show]
 
   get 'sign_up' => 'users#new'
   get 'log_out' => 'sessions#destroy'
