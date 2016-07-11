@@ -59,5 +59,12 @@
           </div>
       <%end%>
     </div>
+
+    <% if @user == current_user %>
+      <div class="button-small button">
+        <%= link_to 'Удалить пользователя', user_path(@user), method: :delete,
+                    data: {confirm: 'Точно удалить профиль?'}%>
+      </div>
+    <%end%>
   </div>
 </div>
