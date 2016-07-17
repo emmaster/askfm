@@ -64,6 +64,7 @@ GEM
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
+    pg (0.18.4)
     pkg-config (1.1.7)
     rack (1.6.4)
     rack-test (0.6.3)
@@ -117,6 +118,7 @@ PLATFORMS
 DEPENDENCIES
   byebug
   jquery-rails
+  pg
   rails (= 4.2.6)
   sqlite3
   web-console (~> 2.0)
