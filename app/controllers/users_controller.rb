@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   before_action :load_user, except: [:new,:create,:index]
   before_action :authorize_user, except: [:index, :new, :create, :show]
-  before_action :already_logged, except: [:undex, :destroy, :show, :update]
+  before_action :already_logged, except: [:index, :destroy, :show, :update]
 
   def index
     @users = User.all
