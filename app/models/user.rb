@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   DIGEST = OpenSSL::Digest::SHA256.new
 
   has_many :questions
+  has_many :questions_asked, class_name: 'Question', foreign_key: :author_id
 
   validates :email, :username, presence: true
   validates :email, :username, uniqueness: true

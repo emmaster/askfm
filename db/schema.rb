@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160711123618) do
+ActiveRecord::Schema.define(version: 20160720142240) do
 
   create_table "questions", force: :cascade do |t|
     t.string   "text"
@@ -19,8 +19,10 @@ ActiveRecord::Schema.define(version: 20160711123618) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "user_id"
+    t.integer  "author_id"
   end
 
+  add_index "questions", ["author_id"], name: "index_questions_on_author_id"
   add_index "questions", ["user_id"], name: "index_questions_on_user_id"
 
   create_table "users", force: :cascade do |t|
