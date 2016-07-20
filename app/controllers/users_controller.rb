@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   before_action :load_user, except: [:new,:create,:index]
   before_action :authorize_user, except: [:index, :new, :create, :show]
-  before_action :already_logged, except: [:index, :destroy, :show, :update]
+  before_action :already_logged, except: [:index, :destroy, :show, :update, :edit]
 
   def index
     @users = User.all
@@ -50,7 +50,6 @@ class UsersController < ApplicationController
   def show
     @questions = @user.questions.order(created_at: :desc)
     @new_question = @user.questions.build
-
     @questions_count = @questions.count
     @answers_count = @questions.where.not(answer: nil).count
     @unanswered_count = @questions_count-@answers_count
