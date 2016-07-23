@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   validates :email, format: {with: /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i}
   validates :username, format: {with: /\A[a-zA-Z0-9_]*\z/}
   validates :username, length: {maximum: 40}
+  validates :color, inclusion: {in: ['ab2800','964e00','']}
 
   attr_accessor :password
 
