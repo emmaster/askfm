@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   before_action :load_user, except: [:new,:create,:index]
   before_action :authorize_user, except: [:index, :new, :create, :show]
-  before_action :already_logged, except: [:index, :destroy, :show, :update, :edit]
+  before_action :already_logged, only: [:new, :create]
 
   def index
     @users = User.all
@@ -14,13 +14,9 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    if current_user == @user
       session[:user_id] = nil
       @user.destroy
       redirect_to root_url, alert: 'пользователь удален'
-    else
-      redirect_to root_url, alert: 'некого удалять'
-    end
   end
 
   def create
