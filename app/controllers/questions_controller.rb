@@ -14,7 +14,7 @@ class QuestionsController < ApplicationController
 
     @question.author = current_user if current_user.present?
 
-    if check_captcha(@question) && @question.save
+    if verify_recaptcha(model: @question) && @question.save
       redirect_to user_path(@question.user), notice: 'Вопрос задан'
     else
       render :new
