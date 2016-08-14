@@ -13,13 +13,23 @@ class QuestionsController < ApplicationController
 
 
     @question.author = current_user if current_user.present?
-
-    if verify_recaptcha(model: @question) && @question.save
-      redirect_to user_path(@question.user), notice: 'Вопрос задан'
+    if current_user.present?
+      if @question.save
+        redirect_to user_path(@question.user), notice: 'Вопрос задан'
+      else
+        redirect_to user_path(@question.user), alert:  'Ошибка сохранения'
+        # render :new
+      end
     else
-      redirect_to user_path(@question.user), alert: 'Каптча не введена'
-      # render :new
+      if verify_recaptcha(model: @question) && @question.save
+        redirect_to user_path(@question.user), notice: 'Вопрос задан'
+      else
+        redirect_to user_path(@question.user), alert: 'Каптча не введена'
+        # render :new
+      end
     end
+
+
   end
 
   # PATCH/PUT /questions/1

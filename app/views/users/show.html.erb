@@ -62,7 +62,7 @@
           </div>
 
           <div class="form-field">
-            <%= recaptcha_tags %>
+            <%= recaptcha_tags unless current_user.present? %>
           </div>
 
           <div class="form-action">
