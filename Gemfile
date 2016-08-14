@@ -4,11 +4,10 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.6'
 
 gem 'uglifier'
-# Use jquery as the JavaScript library
+
 gem 'jquery-rails'
 
-
-
+gem 'recaptcha', require: 'recaptcha/rails'
 
 
 group :production do
@@ -27,4 +26,3 @@ group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 end
-
