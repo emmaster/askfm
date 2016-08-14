@@ -17,7 +17,8 @@ class QuestionsController < ApplicationController
     if verify_recaptcha(model: @question) && @question.save
       redirect_to user_path(@question.user), notice: 'Вопрос задан'
     else
-      render :new
+      redirect_to user_path(@question.user), alert: 'Каптча не введена'
+      # render :new
     end
   end
 
